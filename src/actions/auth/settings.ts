@@ -5,7 +5,7 @@ import {SettingSchema} from "@/schemas/authSchema";
 import {currentUser} from "@/lib/auth";
 import {getUserByEmail, getUserById} from "@/data/auth/user";
 import {generateVerificationToken} from "@/lib/tokens";
-import {sendVerificationEmail} from "@/lib/mail";
+// import {sendVerificationEmail} from "@/lib/auth/mail";
 import bcrypt from "bcryptjs";
 import { prisma } from '@/lib/prisma';
 
