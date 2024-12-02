@@ -1,7 +1,6 @@
 'use client'
 
 import { Button } from "../ui/button"
-import { getUserSession } from "@/actions/auth/session";
 import { logOut } from "@/actions/auth/logout";
 
 export const DashboardHeader = async({ user }: any) => {

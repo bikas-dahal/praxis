@@ -32,14 +32,14 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             //     return false
             // }
 
-            console.log('eu', existingUser)
+            // console.log('eu', existingUser)
 
             return true
         },
 
         async session({ token, session}) {
-            console.log({stoken: token})
-            console.log("session", session)
+            // console.log({stoken: token})
+            // console.log("session", session)
 
             if (session.user && token.sub) {
                 session.user.id = token.sub
@@ -55,7 +55,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
                 session.user.isOAuth = token.isOAuth as boolean
             }
             // session.user.hi = 'hyalo'
-            // console.log(session)
+            console.log(session)
 
             return session
         },

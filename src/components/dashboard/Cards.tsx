@@ -11,8 +11,6 @@ export const DashboardCards = async () => {
     return (
         <>
         
-        {/* Quizzes */}
-        {JSON.stringify(session)}
         <Card>
           <CardHeader>
             <h2 className="text-xl font-semibold">Your Quizzes</h2>
@@ -106,7 +104,7 @@ export const DashboardCards = async () => {
               </li>
             </ul>
             <Button className="mt-4 w-full" asChild>
-              <Link href="/blogs">Read Blogs</Link>
+              <Link href="/dashboard/blogs">Read Blogs</Link>
             </Button>
           </CardContent>
         </Card>
