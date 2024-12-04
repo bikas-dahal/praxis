@@ -3,10 +3,10 @@
 import { Button } from "../ui/button"
 import { logOut } from "@/actions/auth/logout";
 
-export const DashboardHeader = async({ user }: any) => {
+export const DashboardHeader = ({ user }: any) => {
 
-    const onClick =  async() => {
-        await logOut();
+    const onClick =  () => {
+      logOut();
     }
 
     return (
