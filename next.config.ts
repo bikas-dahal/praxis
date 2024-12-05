@@ -1,6 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  pageExtensions: ['mdx', 'ts', 'tsx'],
   images: {
     remotePatterns: [
       {
@@ -14,6 +15,10 @@ const nextConfig: NextConfig = {
       {
         protocol: 'https',
         hostname: 'plus.unsplash.com', 
+      },
+      {
+        protocol: 'https',
+        hostname: 'e7.pngegg.com', 
       }
     ]
   }

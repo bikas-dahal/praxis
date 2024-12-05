@@ -17,7 +17,7 @@ export function Navbar() {
           <div className="hidden md:flex space-x-8">
             <NavLink href="#about">About</NavLink>
             <NavLink href="#features">Features</NavLink>
-            <NavLink href="#blogs">Blogs</NavLink>
+            <NavLink href="/dashboard/blogs">Blogs</NavLink>
             <NavLink href="#contact">Contact</NavLink>
           </div>
 
@@ -37,7 +37,7 @@ export function Navbar() {
             <div className="flex flex-col space-y-4">
               <MobileNavLink href="#about" onClick={() => setIsOpen(false)}>About</MobileNavLink>
               <MobileNavLink href="#features" onClick={() => setIsOpen(false)}>Features</MobileNavLink>
-              <MobileNavLink href="#blogs" onClick={() => setIsOpen(false)}>Blogs</MobileNavLink>
+              <MobileNavLink href="/dashboard/blogs" onClick={() => setIsOpen(false)}>Blogs</MobileNavLink>
               <MobileNavLink href="#contact" onClick={() => setIsOpen(false)}>Contact</MobileNavLink>
             </div>
           </motion.div>

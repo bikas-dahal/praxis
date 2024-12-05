@@ -47,14 +47,14 @@ export const LikeButton = ({ blogId }: { blogId: string }) => {
       onClick={handleLikeToggle}
       variant={'ghost'}
       disabled={loading}
-      className="flex items-center gap-2"
+      className="flex items-center siz-4"
     >
       {loading ? (
-        <Loader2Icon className="animate-spin h-4 w-4" />
+        <Loader2Icon className="animate-spin size-5" />
       ) : isLiked ? (
-        <HeartFilledIcon className="text-red-500 h-4 w-4" />
+        <HeartFilledIcon className="text-red-500 size-5" />
       ) : (
-        <HeartIcon className="h-4 w-4" />
+        <HeartIcon className="size-5" />
       )}
       {/* {isLiked ? "Unlike" : "Like"} */}
     </Button>

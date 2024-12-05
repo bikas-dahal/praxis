@@ -1,58 +1,40 @@
-// 'use client'
-
 import { BlogCard } from './blog-card';
 import { prisma } from '@/lib/prisma';
+import React from 'react';
 
-export const BlogList: React.FC = async() => {
-  
-    const blogs = await prisma.blog.findMany({
+export const BlogList: React.FC = async () => {
+  const blogs = await prisma.blog.findMany({
+    select: {
+      id: true,
+      title: true,
+      content: true,
+      createdAt: true,
+      slug: true,
+      tags: true,
+      author: {
         select: {
-            id: true,
-            title: true,
-            content: true,
-            createdAt: true,
-            slug: true,
-            tags: true,
-            author: {
-                select: {
-                    id: true,
-                    name: true
-                }
-            },
-            _count: {
-                select: {
-                    likes: true,
-                    comments: true
-                }
-            }
-        }
-    })
+          id: true,
+          name: true,
+        },
+      },
+      _count: {
+        select: {
+          likes: true,
+          comments: true,
+        },
+      },
+    },
+  });
 
-//   if (isLoading) return <div>Loading blogs...</div>;
-//   if (isError) return <div>Error loading blogs</div>;
+  if (!blogs || blogs.length === 0) {
+    return <p className="text-center text-neutral-500">No blogs available.</p>;
+  }
 
   return (
-    <div>
-      {blogs?.map(blog => (
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-20">
+      {blogs.map((blog) => (
         <BlogCard key={blog.id} blog={blog} />
       ))}
-{/* 
-      <div className="flex justify-between mt-4">
-        <button
-          onClick={() => setPage(p => Math.max(1, p - 1))}
-          disabled={page === 1}
-          className="px-4 py-2 border rounded disabled:opacity-50"
-        >
-          Previous
-        </button>
-        <button
-          onClick={() => setPage(p => p + 1)}
-          disabled={!data || data.blogs.length < 10}
-          className="px-4 py-2 border rounded disabled:opacity-50"
-        >
-          Next
-        </button>
-      </div> */}
     </div>
   );
 };
