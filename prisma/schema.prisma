@@ -37,6 +37,7 @@ model Account {
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
  
   @@id([provider, providerAccountId])
+  @@index([userId])
 }
  
 model Session {
@@ -50,7 +51,7 @@ model Session {
 }
  
 model VerificationToken {
-  id    String    @default(cuid())
+  id    String   @id @default(cuid())
   email String
   token      String
   expires    DateTime
@@ -76,12 +77,16 @@ model User {
   password      String?
   emailVerified DateTime?
   image         String?
+  imagePublicId String?
   role          UserRole        @default(USER)
   blogs         Blog[]
   comments      Comment[]
   likes         Like[]
   accounts      Account[]
   sessions      Session[]
+  senderMessages    Message[] @relation("sender")
+  receiverMessages Message[] @relation("receiver")
+
  
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -102,6 +107,9 @@ model Blog {
   author User     @relation(fields: [authorId], references: [id])
   likes     Like[]
   comments Comment[]
+
+  @@index([isPublished, authorId])
+
 }
 
 model Like {
@@ -124,7 +132,23 @@ model Comment {
   parentId    String?
 }
 
+model Message {
+  id    String     @id @default(cuid())
+  text  String
+  createdAt DateTime @default(now())
+  senderId  String?
+  receiverId  String?
+  dateRead    DateTime?
+  senderDelete   Boolean @default(false)
+  receiverDelete Boolean @default(false)
+  sender          User?     @relation("sender", fields: [senderId], references: [id], onDelete: SetNull)
+  receiver        User?     @relation("receiver", fields: [receiverId], references: [id], onDelete: SetNull)
+}
 
+// enum MessageStatus {
+//   ACTIVE
+//   DELETED
+// }
 
 
 model Quiz {

@@ -13,6 +13,7 @@ import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeHighlight from 'rehype-highlight';
 import 'highlight.js/styles/github.css';
+import { toast } from 'react-toastify';
 
 // Dynamically import the markdown editor to reduce initial bundle size
 const MDEditor = dynamic(() => import('@uiw/react-md-editor'), { ssr: false });
@@ -58,6 +59,7 @@ export const BlogForm: React.FC = () => {
 
     try {
       const response = await saveBlog(sanitizedData);
+      toast.success('Blog created successfully');
       router.push(`/dashboard/blog/${response.slug}`);
     } catch (error) {
       console.error('Submission error:', error);

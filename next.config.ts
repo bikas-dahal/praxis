@@ -19,6 +19,10 @@ const nextConfig: NextConfig = {
       {
         protocol: 'https',
         hostname: 'e7.pngegg.com', 
+      },
+      {
+        protocol: 'https',
+        hostname: 'utfs.io', 
       }
     ]
   }

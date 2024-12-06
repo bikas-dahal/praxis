@@ -42,6 +42,8 @@ export function LoginForm() {
         setError('')
         setSuccess('')
 
+        const response = login(values, callbackUrl)
+
         startTransition(() => {
             // fetch('api/')
             login(values, callbackUrl)

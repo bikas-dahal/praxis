@@ -1,14 +1,28 @@
 import { prisma } from "@/lib/prisma";
 import Link from "next/link";
 import Image from "next/image";
+import { auth } from "@/auth";
+import { redirect } from "next/navigation";
 
 const ChatPage = async () => {
+
+    const session = await auth()
+
+    if (!session) {
+        return redirect("/auth/login");
+    }
+
   const people = await prisma.user.findMany({
     select: {
       id: true,
       name: true,
       image: true,
     },
+    where: {
+        NOT: {
+            id: session?.user?.id
+        }
+    }
   });
 
   return (

@@ -1,87 +1,72 @@
 'use server'
 
-import * as z from 'zod'
-import {SettingSchema} from "@/schemas/authSchema";
-import {currentUser} from "@/lib/auth";
-import {getUserByEmail, getUserById} from "@/data/auth/user";
-import {generateVerificationToken} from "@/lib/tokens";
-// import {sendVerificationEmail} from "@/lib/auth/mail";
-import bcrypt from "bcryptjs";
-import { prisma } from '@/lib/prisma';
+import { prisma } from "@/lib/prisma";
+import { auth } from "@/auth";
+import { editMemberSchema, EditMemberType } from "@/schemas/authSchema";
+import { revalidatePath } from "next/cache";
 
-export const settings = async (
-    values: z.infer<typeof SettingSchema>
-) => {
-    const user = await currentUser()
+export const updateUserProfile = async (data: EditMemberType) => {
+  // Get the current authenticated user
+  const session = await auth();
 
-    if (!user) {
-        return {
-            error: 'No Authorized User',
-        }
+  if (!session?.user) {
+    return {
+      status: 'error',
+      error: 'Not authenticated'
+    };
+  }
+
+  try {
+    // Validate input
+    const validatedFields = editMemberSchema.safeParse(data);
+
+    if (!validatedFields.success) {
+      return {
+        status: 'error',
+        error: 'Invalid fields',
+        details: validatedFields.error.flatten()
+      };
     }
 
-    const dbUser = await getUserById(user.id!)
-    if (!dbUser) {
-        return {
-            error: 'User not found',
-        }
-    }
+    // Update user profile using the authenticated user's ID
+    const { name, image } = validatedFields.data;
+    const updatedUser = await prisma.user.update({
+      where: { id: session.user.id }, // Use ID, not email
+      data: {
+        name,
+        image
+      },
+    });
 
-    if (user.isOAuth) {
-        values.email = undefined
-        values.password = undefined
-        values.newPassword = undefined
-        values.isTwoFactorEnabled = undefined
-
-    }
-
-    if (values.email && values.email !== user.email) {
-        const existingUser = await getUserByEmail(values.email)
-
-        if (existingUser && existingUser.id !== user.id) {
-            return {
-                error: 'Email already in use.',
-            }
-        }
-
-        const verificationToken = await generateVerificationToken(values.email)
-
-        await sendVerificationEmail(
-            verificationToken.email,
-            verificationToken.token
-        );
-
-        return {
-            success: 'Verification email sent'
-        }
-
-    }
-
-    if (values.password && values.newPassword && dbUser.password ) {
-        const passwordsMatch = await bcrypt.compare(values.password, dbUser.password)
-        if (!passwordsMatch) {
-            return {
-                error: 'Incorrect password',
-            }
-        }
-
-        const hashedPassword = await bcrypt.hash(
-            values.newPassword, 10
-        )
-        values.password = hashedPassword
-        values.newPassword = undefined
-
-    }
-
-    await prisma.user.update({
-        where: {id: dbUser.id},
-        data: {
-            ...values,
-        }
-
-    })
 
     return {
-        success: 'Settings updated successfully',
+      status: 'success',
+      data: updatedUser
+    };
+  } catch (error) {
+    console.error('Profile update error:', error);
+    return {
+      status: 'error',
+      error: 'Failed to update profile'
+    };
+  }
+};
+
+
+
+export async function getUserImage(userId: string | null) {
+    if (!userId) {
+      throw new Error("User ID is required");
     }
-}
+  
+    const user = await prisma.user.findUnique({
+      where: { id: userId },
+      select: { image: true },
+    });
+  
+    if (!user) {
+      throw new Error("User not found");
+    }
+  
+    return user.image;
+  }

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Separator } from "@/components/ui/separator";
+import { usePathname } from "next/navigation";
 
 export const Sidebar = () => {
   return (
@@ -22,8 +23,8 @@ export const Sidebar = () => {
         <SidebarLink href="/dashboard/blogs" icon="✍️">
           Blogs
         </SidebarLink>
-        <SidebarLink href="/dashboard/resources" icon="📚">
-          Resources
+        <SidebarLink href="/dashboard/chat" icon="💬">
+          Chat
         </SidebarLink>
       </nav>
 
@@ -46,10 +47,19 @@ const SidebarLink = ({
   children: React.ReactNode;
   icon?: string;
 }) => {
+
+    const pathname = usePathname();
+    console.log('pathname', pathname);
+
+    const isActive = pathname === href;
+    
+
   return (
     <Link
       href={href}
-      className="flex items-center gap-3 px-4 py-3 rounded-lg transition hover:bg-gray-700 hover:text-indigo-400"
+      className={`flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-gray-700 transition ${
+        isActive ? 'bg-gray-700' : ''
+        }`}
     >
       {icon && <span className="text-lg">{icon}</span>}
       <span className="text-sm font-medium">{children}</span>

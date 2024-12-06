@@ -19,6 +19,13 @@ export const RegisterSchema = z.object({
 })
 
 
+export const editMemberSchema = z.object({
+    name: z.string().min(2, 'Name must be at least 2 characters'),
+    image: z.string().url().optional()
+})
+
+export type EditMemberType = z.infer<typeof editMemberSchema>
+
 export const resetSchema = z.object({
     email: z.string().email({message: 'Email is required'}).email({message: 'Enter a valid email address'}),
 })
