@@ -3,14 +3,14 @@ import Link from "next/link";
 import Image from "next/image";
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
+import PresenceDot from "@/components/chat/presence-dot";
 
 const ChatPage = async () => {
+  const session = await auth();
 
-    const session = await auth()
-
-    if (!session) {
-        return redirect("/auth/login");
-    }
+  if (!session) {
+    return redirect("/auth/login");
+  }
 
   const people = await prisma.user.findMany({
     select: {
@@ -19,10 +19,10 @@ const ChatPage = async () => {
       image: true,
     },
     where: {
-        NOT: {
-            id: session?.user?.id
-        }
-    }
+      NOT: {
+        id: session?.user?.id,
+      },
+    },
   });
 
   return (
@@ -36,18 +36,21 @@ const ChatPage = async () => {
       {/* User List */}
       <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {people.map((person) => (
-          <li key={person.id} className="bg-white shadow rounded-lg hover:shadow-lg transition">
+          <li
+            key={person.id}
+            className="bg-white shadow rounded-lg hover:shadow-xl hover:scale-105 transition-all duration-300"
+          >
             <Link href={`/dashboard/chat/${person.id}`}>
-              <div className="p-4 flex items-center space-x-4">
+              <div className="p-4 flex flex-col items-center text-center">
                 {/* User Avatar */}
-                <div className="flex-shrink-0">
+                <div className="relative w-20 h-20 mb-4">
                   <Image
-                    src={person.image || '/images/avatar.png'}
+                    src={person.image || "/images/avatar.png"}
                     alt={person.name!}
-                    width={64}
-                    height={64}
+                    fill
                     className="rounded-full object-cover"
                   />
+                  <PresenceDot id={person.id} />
                 </div>
 
                 {/* User Info */}

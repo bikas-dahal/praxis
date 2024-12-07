@@ -33,15 +33,15 @@ export const ChatForm = ({ id }: Props) => {
             const response = await sendMessage(data, id, currentUser.id!)
 
             if (response.status === 'error') {
-                toast.error(response.error)
+                toast.error('Failed to send message')
                 return
             }
+            router.refresh()
+            reset()
 
         } catch (error) {
-            console.error(error)
+            console.log(error)
         }
-        reset()
-        router.refresh()
     }
 
     return (

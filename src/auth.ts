@@ -55,12 +55,12 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
                 session.user.isOAuth = token.isOAuth as boolean
             }
             // session.user.hi = 'hyalo'
-            console.log(session)
+            // console.log(session)
 
             return session
         },
         async jwt({ token }) {
-            console.log('called')
+            // console.log('called')
 
             if (!token.sub) return token
 

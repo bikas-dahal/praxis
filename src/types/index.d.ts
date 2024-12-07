@@ -1,4 +1,11 @@
-type MessagewithObject = Prisma.MessageGetPayload<{
+import { ZodIssue } from 'zod';
+
+type ActionResult<T> =
+    { status: 'success', data: T } | { status: 'error', error: string | ZodIssue[] }
+
+
+
+export type MessagewithObject = Prisma.MessageGetPayload<{
     select: {
         id: true;
         text: true;
@@ -23,7 +30,7 @@ type MessagewithObject = Prisma.MessageGetPayload<{
 
 
 
-type MessageDto = {
+export type MessageDto = {
     id: string;
     text: string;
     createdAt: string;

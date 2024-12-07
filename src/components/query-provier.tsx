@@ -1,6 +1,7 @@
 // In Next.js, this file would be called: app/providers.tsx
 'use client'
 
+import { usePresenceChannel } from '@/hooks/chat/use-presence-channel'
 // Since QueryClientProvider relies on useContext under the hood, we have to put 'use client' on top
 import {
     isServer,
@@ -46,6 +47,7 @@ export const QueryProvider = ({ children }: QueryProviderProps) => {
     //       suspend because React will throw away the client on the initial
     //       render if it suspends and there is no boundary
     const queryClient = getQueryClient()
+    usePresenceChannel()
 
     return (
         <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
