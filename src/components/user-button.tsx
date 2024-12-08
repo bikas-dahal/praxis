@@ -6,7 +6,6 @@ import {
   LoaderPinwheel,
   LogOutIcon,
 } from "lucide-react";
-import { redirect } from "next/navigation";
 import { useEffect, useState } from "react";
 import {
   DropdownMenu,
@@ -27,10 +26,6 @@ export const UserButton = () => {
   const { id, name, email } = currentUser || {};
   const [userImage, setUserImage] = useState<string>("/images/avatar.png");
   const [loading, setLoading] = useState(true);
-
-  if (!currentUser) {
-    return redirect("/auth/login");
-  }
 
   useEffect(() => {
     const fetchImage = async () => {

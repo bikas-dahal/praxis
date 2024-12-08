@@ -3,7 +3,6 @@
 import { prisma } from "@/lib/prisma";
 import { auth } from "@/auth";
 import { editMemberSchema, EditMemberType } from "@/schemas/authSchema";
-import { revalidatePath } from "next/cache";
 
 export const updateUserProfile = async (data: EditMemberType) => {
   // Get the current authenticated user

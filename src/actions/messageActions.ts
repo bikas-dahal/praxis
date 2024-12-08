@@ -5,9 +5,122 @@ import { prisma } from "@/lib/prisma"
 import { pusherServer } from "@/lib/pusher"
 import { createChatId, mapMessage } from "@/lib/utils"
 import { messageSchema } from "@/schemas/messageSchema"
-import { ActionResult, MessageDto } from "@/types"
+import { ActionResult, GetMemberParams, MessageDto, PaginatedResponse } from "@/types"
+import { Prisma } from "@prisma/client"
 import { revalidatePath } from "next/cache"
 
+
+export const getMembers = async ({
+    dateRange = '5',
+    // nature = 'reader,writer',
+    orderBy = 'updated',
+    // withPhoto = true,
+    pageNumber = 1,
+    pageSize = 50
+}: GetMemberParams): Promise<PaginatedResponse<Prisma.UserGetPayload<{
+    select: {
+        id: true,
+        name: true,
+        image: true,
+        createdAt: true,
+        updatedAt: true,
+        role: true,
+        username: true,
+        email: true
+    }
+}> & { nature?: string }>> => {
+    const session = await auth();
+    if (!session) {
+        throw new Error('User is not authenticated');
+    }
+    const userId = session.user?.id;
+
+    // Parse nature array
+    // const natureArray = nature.split(',').map(n => n.trim());
+
+    // Convert dateRange to a date
+    const cutoffDate = new Date();
+    cutoffDate.setMonth(cutoffDate.getMonth() - parseInt(dateRange));
+
+    // Pagination
+    const page = Math.max(1, pageNumber);
+    const take = Math.max(1, pageSize);
+    const skip = (page - 1) * take;
+
+    try {
+        // Construct dynamic where clause
+        const whereCondition: Prisma.UserWhereInput = {
+            NOT: { id: userId }, // Exclude current user
+        };
+
+        // Filter by nature (reader/writer)
+        // if (natureArray.length > 0 && !natureArray.includes('reader,writer')) {
+        //     whereCondition.blogs = natureArray.includes('writer')
+        //         ? { some: {} }
+        //         : natureArray.includes('reader')
+        //         ? { none: {} }
+        //         : {};
+        // }
+
+        // Filter by date range
+        whereCondition.createdAt = { gte: cutoffDate };
+
+        // Filter by photo
+        // if (withPhoto) {
+        //     whereCondition.image = { not: null };
+        // }
+
+        // Determine order by
+        const orderByCondition: Prisma.UserOrderByWithRelationInput =
+            orderBy === 'created'
+                ? { createdAt: 'desc' }
+                : { updatedAt: 'desc' };
+
+        // Use Promise.all for parallel fetching
+        const [totalCount, members] = await Promise.all([
+            prisma.user.count({ where: whereCondition }),
+            prisma.user.findMany({
+                where: whereCondition,
+                orderBy: orderByCondition,
+                skip,
+                take,
+                select: {
+                    id: true,
+                    name: true,
+                    image: true,
+                    createdAt: true,
+                    updatedAt: true,
+                    role: true,
+                    username: true,
+                    email: true,
+                    blogs: {
+                        select: { id: true }
+                    }
+                }
+            })
+        ]);
+
+        // Calculate total pages
+        const totalPages = Math.ceil(totalCount / take);
+
+        // Transform members to include nature
+        const transformedMembers = members.map(member => ({
+            ...member,
+            nature: member.blogs.length > 0 ? 'writer' : 'reader'
+        }));
+
+        return {
+            items: transformedMembers,
+            totalCount,
+            page,
+            pageSize: take,
+            totalPages
+        };
+    } catch (error) {
+        console.error('Get members error:', error);
+        throw error;
+    }
+};
 
 export const getMesssages = async (receiverId: string) => {
     try {
@@ -15,10 +128,10 @@ export const getMesssages = async (receiverId: string) => {
 
         if (!session || !session.user || !session.user.id) {
             console.error('Session is invalid or user is not authenticated.');
-            return { status: 401, formattedMessage: [] };
+            return { messages: [], readCount: 0 }
         }
         
-        const senderId = session?.user?.id!
+        const senderId = session.user?.id
     
         // console.log('Sender ID:', senderId);
         
@@ -43,6 +156,8 @@ export const getMesssages = async (receiverId: string) => {
                 select: messageSelect
         })
 
+        let readCount = 0
+
         if (messages.length > 0) {
 
             const unreadMessagesId = messages.filter((message) => (
@@ -60,15 +175,17 @@ export const getMesssages = async (receiverId: string) => {
                 }
             })
 
+            readCount = unreadMessagesId.length
+
             await pusherServer.trigger(createChatId(senderId, receiverId), 'message:read', unreadMessagesId)
         }
 
         const formattedMessage = messages.map((message) => mapMessage(message))
         
-        return { formattedMessage, status: 200 } // Add status for consistency
+        return { messages: formattedMessage,  readCount} // Add status for consistency
     } catch (error) {
         console.error('Message fetching error:', error)
-        return { formattedMessage: [], status: 500 } // Return empty array and error status
+        throw error // Return empty array and error status
     }
 }
 
@@ -99,6 +216,8 @@ export const sendMessage = async (message: string, receiver: string, sender: str
         await pusherServer.trigger(createChatId(sender, receiver), 'message:new', MessageDto)
         revalidatePath(`/dashboard/chat`)
 
+        await pusherServer.trigger(`private-${receiver}`, 'message:new', MessageDto)
+
         return {
             status: 'success',
             data: MessageDto
@@ -111,6 +230,26 @@ export const sendMessage = async (message: string, receiver: string, sender: str
             error: 'Failed to send message'
         }
         
+    }
+}
+
+export async function getUnreadMessageCount () {
+    try {
+        const session = await auth();
+        
+        const count = await prisma.message.count({
+            where: {
+                receiverId: session?.user?.id,
+                dateRead: null,
+                receiverDelete: false
+            }
+        })
+
+        return count;
+
+    } catch (error) {
+        console.error('Unread message count error:', error)
+        throw error
     }
 }
 

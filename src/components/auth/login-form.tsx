@@ -17,7 +17,7 @@ import {FormSuccess} from "@/components/form-success";
 import {login} from "@/actions/auth/login";
 import {useTransition} from "react";
 import {useSearchParams} from "next/navigation";
-import Link from "next/link";
+// import Link from "next/link";
 
 
 export function LoginForm() {
@@ -25,7 +25,7 @@ export function LoginForm() {
     const callbackUrl = searchParams.get('callbackUrl')
     const urlError = searchParams.get('error') === 'OAuthAccountNotLinked' ? 'Email already in use with different Provider' : ''
 
-    const [showTwoFactor, setShowTwoFactor] = React.useState(false);
+    const [showTwoFactor ] = React.useState(false);
     const [isPending, startTransition] = useTransition()
     const [error, setError] = React.useState<string | undefined>('');
     const [success, setSuccess] = React.useState<string | undefined>('');
@@ -42,11 +42,11 @@ export function LoginForm() {
         setError('')
         setSuccess('')
 
-        const response = login(values, callbackUrl)
+        // const response = login(values, callbackUrl)
 
         startTransition(() => {
             // fetch('api/')
-            login(values, callbackUrl)
+            login(values, callbackUrl!)
                 .then((data) => {
                     if (data?.error) {
                         form.reset();

@@ -12,7 +12,7 @@ export function Footer() {
           <div>
             <h3 className="text-lg font-semibold mb-4">About Praxis</h3>
             <p className="text-muted-foreground">
-              Empowering Nepal's future professionals through comprehensive exam preparation
+              Empowering Nepal&apos; future professionals through comprehensive exam preparation
               and continuous learning support.
             </p>
           </div>

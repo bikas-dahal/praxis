@@ -33,7 +33,7 @@ export const BlogCard: React.FC<BlogCardProps> = ({ blog }) => {
             <div className="flex items-center space-x-2">
               <span>{blog.author?.name || 'Anonymous'}</span>
               <span className="text-neutral-300">•</span>
-              <span>{new Date(blog.createdAt).toLocaleDateString()}</span>
+              <span>{new Date(blog.createdAt!).toLocaleDateString()}</span>
             </div>
             
             <div className="flex items-center space-x-3">

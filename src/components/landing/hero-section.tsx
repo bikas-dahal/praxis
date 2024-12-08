@@ -26,11 +26,11 @@ export function HeroSection() {
               <span className="text-primary font-medium">Welcome to Praxis</span>
             </div>
             <h1 className="text-5xl md:text-7xl font-bold mb-6">
-              Empowering Nepal's
+              Empowering Nepal&apos;s
               <span className="block text-primary">Future Professionals</span>
             </h1>
             <p className="text-xl text-muted-foreground mb-8">
-              Join Nepal's premier platform for professional exam preparation. 
+              Join Nepal&apos;s premier platform for professional exam preparation. 
               We combine traditional wisdom with modern technology to help you 
               achieve excellence in your career journey.
             </p>

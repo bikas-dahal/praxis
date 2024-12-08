@@ -1,12 +1,21 @@
 'use server';
 
+import { auth } from '@/auth';
 import { prisma } from '@/lib/prisma';
 import { CommentInput, CommentSchema } from "@/schemas/blogSchema"
 import { revalidatePath } from 'next/cache';
+import { redirect } from 'next/navigation';
 
 
 export const postComment = async (data: CommentInput) => {
   try {
+
+    const session = await auth();
+
+    if (!session?.user) {
+      return redirect('/auth/login');
+    }
+
     const validatedData = CommentSchema.safeParse(data);
     
     if (!validatedData.success) {
@@ -36,6 +45,13 @@ export const postComment = async (data: CommentInput) => {
 
 
 export const blogIsLiked = async (blogId: string, userId: string) => {
+
+  const session = await auth();
+
+  if (!session?.user) {
+    return redirect('/auth/login');
+  }
+
   try {
     const like = await prisma.like.findFirst({
       where: {
@@ -46,6 +62,7 @@ export const blogIsLiked = async (blogId: string, userId: string) => {
 
     return !!like;
   } catch (error) {
+    console.log(error);
     throw new Error('Something went wrong');
   }
 };
@@ -83,6 +100,8 @@ export const likeBlog = async (blogId: string, userId: string ) => {
 
     return { message: 'Like added' };
   } catch (error) {
+    console.log(error);
+    
     throw new Error('Something went wrong');
   }
 }

@@ -14,7 +14,7 @@ interface Props {
 
 export const ChatForm = ({ id }: Props) => {
 
-    const { register, handleSubmit, reset, formState: { errors, isSubmitting, isValid } } = useForm({
+    const { register, handleSubmit, reset,  } = useForm({
         resolver: zodResolver(messageSchema),
         defaultValues: {
             text: ''
@@ -27,7 +27,7 @@ export const ChatForm = ({ id }: Props) => {
 
     if (!currentUser) return null
     
-
+    // @ts-excpect-error
     const onSubmit = async (data: any) => {
         try {
             const response = await sendMessage(data, id, currentUser.id!)

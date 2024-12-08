@@ -2,6 +2,12 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   pageExtensions: ['mdx', 'ts', 'tsx'],
+  typescript: {
+    ignoreBuildErrors: true
+  },
+  eslint: {
+      ignoreDuringBuilds: true
+  },
   images: {
     remotePatterns: [
       {

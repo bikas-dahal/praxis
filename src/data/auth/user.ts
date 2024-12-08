@@ -8,6 +8,8 @@ export const getUserByEmail = async (email: string) => {
             }
         })
     } catch (err) {
+        console.log(err);
+        
         return {
             error: 'Email Already Exists'
         }
@@ -22,6 +24,7 @@ export const getUserById = async (id: string) => {
             }
         })
     } catch (err) {
+        console.log(err);
         return {
             error: 'User does not exist'
         }

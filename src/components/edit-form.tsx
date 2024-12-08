@@ -61,6 +61,8 @@ const EditForm: React.FC<EditFormProps> = ({ initialName, initialImage }) => {
         toast.error(result?.error || "Error updating profile");
       }
     } catch (error) {
+      console.log(error);
+      
       toast.error("An unexpected error occurred");
     }
   };
@@ -84,7 +86,7 @@ const EditForm: React.FC<EditFormProps> = ({ initialName, initialImage }) => {
             <div className="flex items-center justify-center">
               <div className="relative w-24 h-24 rounded-full border border-gray-300 bg-gray-100 overflow-hidden">
                 {imageUrl ? (
-                  <img
+                  <Image
                     src={imageUrl}
                     alt="Profile"
                     className="object-cover w-full h-full"

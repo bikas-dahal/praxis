@@ -54,7 +54,7 @@ export function FeaturesGrid() {
 }
 
 function FeatureCard({ Icon, title, description, index }: { 
-  Icon: any; 
+  Icon: React.FC; 
   title: string; 
   description: string;
   index: number;
@@ -67,7 +67,7 @@ function FeatureCard({ Icon, title, description, index }: {
       className="bg-card p-6 rounded-lg shadow-lg border border-border hover:border-primary/50 transition-all"
     >
       <div className="text-primary mb-4">
-        <Icon className="h-8 w-8" />
+        <Icon />
       </div>
       <h3 className="text-xl font-semibold mb-2">{title}</h3>
       <p className="text-muted-foreground">{description}</p>

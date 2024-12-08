@@ -50,7 +50,7 @@ export const usePresenceChannel = () => {
                 channelRef.current.unbind('pusher:member_removed')
             }
         }
-    }, [])
+    }, [handleAddMember, handleRemoveMember, handleSetMembers])
 
 
 }

@@ -6,9 +6,7 @@ import {signIn} from "@/auth";
 import {AuthError} from "next-auth";
 import {DEFAULT_LOGIN_REDIRECT} from "@/routes";
 import {getUserByEmail} from "@/data/auth/user";
-import { generateVerificationToken} from "@/lib/tokens";
-import {sendTwoFactorTokenEmail, sendVerificationEmail} from "@/lib/mail";
-import { prisma } from '@/lib/prisma';
+// import { prisma } from '@/lib/prisma';
 
 
 export const login = async (
@@ -24,7 +22,7 @@ export const login = async (
         }
     }
 
-    const {email, password, code} = validatedFields.data
+    const {email, password } = validatedFields.data
 
     const existingUser = await getUserByEmail(email)
 

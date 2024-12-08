@@ -3,9 +3,14 @@ import { DashboardCards } from "@/components/dashboard/Cards";
 import { getUserSession } from "@/actions/auth/session";
 import { Suspense } from 'react';
 import { Loader2 } from 'lucide-react';
+import { redirect } from 'next/navigation';
 
 export default async function Dashboard() {
   const session = await getUserSession();
+
+  if (!session) {
+    return redirect('/auth/login');
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 p-6">

@@ -42,3 +42,39 @@ export type MessageDto = {
     senderImage?: string | null;
     receiverImage?: string | null;
 }
+
+type UserFilters = {
+    dateRange: number;
+    nature: string[];
+    orderBy: string;
+    withPhoto: boolean;
+}
+
+export interface GetMemberParams {
+    dateRange?: string;
+    nature?: string;
+    orderBy?: 'updated' | 'created';
+    withPhoto?: boolean;
+    pageNumber?: number;
+    pageSize?: number;
+}
+
+export interface PaginatedResponse<T> {
+    items: T[];
+    totalCount: number;
+    page?: number;
+    pageSize?: number;
+    totalPages?: number;
+}
+
+export type TransformedMembers = {
+    nature: string;
+    name: string | null;
+    id: string;
+    image: string | null;
+    createdAt: Date;
+    updatedAt: Date;
+    _count: {
+        blogs: number;
+    };
+}[]

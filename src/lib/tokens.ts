@@ -1,7 +1,7 @@
 import {v4} from "uuid";
 import {getVerificationTokenByEmail} from "@/data/auth/verification-token";
 import {getPasswordResetTokenByEmail} from "@/data/auth/password-reset-token";
-import crypto from "crypto";
+// import crypto from "crypto";
 import { prisma } from "./prisma";
 
 
@@ -40,7 +40,6 @@ export const generateVerificationToken = async (email: string) => {
 
     if (existingToken) {
         await prisma.verificationToken.delete({
-            // @ts-ignore
             where: {
                 id: existingToken.id
             }

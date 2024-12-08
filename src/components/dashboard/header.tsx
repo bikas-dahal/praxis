@@ -1,13 +1,13 @@
 'use client';
 import { Button } from "../ui/button";
-import { logOut } from "@/actions/auth/logout";
+// import { logOut } from "@/actions/auth/logout";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Menu } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { useEffect, useState, useCallback } from "react";
 import { Sidebar } from "../sidebar";
 
-export const DashboardHeader = ({ user }: any) => {
+export const DashboardHeader = () => {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   

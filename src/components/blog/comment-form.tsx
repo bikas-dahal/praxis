@@ -6,16 +6,13 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { Loader2, Send } from "lucide-react";
+import Image from 'next/image';
 
 export const CommentForm = ({ blogId }: { blogId: string }) => {
   const user = useCurrentUser();
   const [submitError, setSubmitError] = useState<string | null>(null);
 
-  if (!user) return (
-    <p className="text-neutral-500 text-center py-4 bg-neutral-100 rounded-xl">
-      Please log in to comment.
-    </p>
-  );
+
 
   const {
     register,
@@ -25,7 +22,7 @@ export const CommentForm = ({ blogId }: { blogId: string }) => {
   } = useForm<CommentInput>({
     defaultValues: {
       content: '',
-      userId: user.id,
+      userId: user?.id,
       blogId,
     },
     resolver: zodResolver(CommentSchema),
@@ -49,9 +46,11 @@ export const CommentForm = ({ blogId }: { blogId: string }) => {
       className="bg-white border border-neutral-200 p-2 rounded-xl shadow-sm space-y-2"
     >
       <div className="flex items-center space-x-4 mb-4">
-        {user.image ? (
-          <img 
-            src={user.image} 
+        {user?.image ? (
+          <Image
+            src={user.image || '/images/avatar.png'} 
+            width={48}
+            height={48}
             alt={user.name || 'User'} 
             className="w-12 h-12 rounded-full object-cover border-2 border-neutral-200"
           />

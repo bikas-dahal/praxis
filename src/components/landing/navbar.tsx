@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -11,7 +12,7 @@ export function Navbar() {
     <nav className="fixed w-full z-50 bg-background/80 backdrop-blur-sm border-b border-border">
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center h-16">
-          <a href="/" className="text-2xl font-bold text-primary">Praxis</a>
+          <Link href="/" className="text-2xl font-bold text-primary">Praxis</Link>
           
           {/* Desktop Menu */}
           <div className="hidden md:flex space-x-8">

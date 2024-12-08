@@ -9,7 +9,7 @@ import Image from "@tiptap/extension-image";
 import BulletList from "@tiptap/extension-bullet-list";
 import OrderedList from "@tiptap/extension-ordered-list";
 import ImageResize from "tiptap-extension-resize-image";
-import Toolbar from "./ToolBar";
+
 
 export default function RichTextEditor({ content, onChange }: any) {
   const editor = useEditor({
@@ -37,7 +37,7 @@ export default function RichTextEditor({ content, onChange }: any) {
 
   return (
     <div>
-      <Toolbar editor={editor} />
+      {/* <Toolbar editor={editor} /> */}
       <EditorContent editor={editor} />
     </div>
   );

@@ -3,7 +3,7 @@
 import { MessageDto } from "@/types";
 import React, { useRef, useEffect } from "react";
 import clsx from "clsx";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+// import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { cn, timeAgo } from "@/lib/utils";
 import Image from "next/image";
 
@@ -65,14 +65,14 @@ export default function MessageBox({
           ? message.senderName 
           : message.receiverName;
         
-        const avatarFallback = (isCurrentUserSender 
-          ? message.senderName 
-          : message.receiverName) || '?';
+        // const avatarFallback = (isCurrentUserSender 
+        //   ? message.senderName 
+        //   : message.receiverName) || '?';
   
           return (
             <div className="flex items-center space-x-2">
                 
-              <Image src={avatarSrc!} alt={avatarAlt!} width={32} height={32} className="rounded-full" />
+              <Image src={avatarSrc || '/images/avatar.png'} alt={avatarAlt!} width={32} height={32} className="rounded-full" />
               {/* Debug display of actual image URLs */}
               {/* <div className="text-xs text-gray-500">
                 <div>Sender Image: {message.senderImage}</div>

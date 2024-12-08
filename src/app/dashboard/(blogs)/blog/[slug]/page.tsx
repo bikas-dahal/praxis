@@ -7,10 +7,17 @@ import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeHighlight from 'rehype-highlight';
 import 'highlight.js/styles/github.css';
+import { redirect } from "next/navigation";
+import Image from "next/image";
 
-export default async function BlogDetailPage({ params }: { params: { slug: string } }) {
+type Params = Promise<{ slug: string }>
+
+export default async function BlogDetailPage({ params }: { params: Params }) {
   const session = await auth();
-  const { slug } = params;
+
+  if (!session?.user) return redirect('/auth/login');
+
+  const { slug } = await params;
 
   const blog = await prisma.blog.findUnique({
     where: { slug },
@@ -51,9 +58,11 @@ export default async function BlogDetailPage({ params }: { params: { slug: strin
             <div className="flex items-center space-x-4 mb-6">
               <div className="flex items-center space-x-3">
                 {blog.author.image ? (
-                  <img 
+                  <Image 
                     src={blog.author.image} 
                     alt={blog.author.name || 'Author'} 
+                    width={40}
+                        height={40}
                     className="w-12 h-12 rounded-full object-cover border-2 border-neutral-200"
                   />
                 ) : (
@@ -133,7 +142,9 @@ export default async function BlogDetailPage({ params }: { params: { slug: strin
                 >
                   <div className="flex items-center space-x-4 mb-4">
                     {comment.user.image ? (
-                      <img 
+                      <Image 
+                        width={40}
+                        height={40}
                         src={comment.user.image} 
                         alt={comment.user.name || 'Commenter'} 
                         className="w-10 h-10 rounded-full object-cover border-2 border-neutral-200"
@@ -142,8 +153,8 @@ export default async function BlogDetailPage({ params }: { params: { slug: strin
                       <UserIcon className="w-10 h-10 text-neutral-400" />
                     )}
                     <div>
-                      <p className="font-semibold text-neutral-800">{comment.user.name}</p>
-                      <p className="text-xs text-neutral-600">
+                      <div className="font-semibold text-neutral-800">{comment.user.name}</div>
+                      <div className="text-xs text-neutral-600">
                         {new Date(comment.createdAt).toLocaleDateString('en-US', {
                           year: 'numeric',
                           month: 'short',
@@ -151,10 +162,10 @@ export default async function BlogDetailPage({ params }: { params: { slug: strin
                           hour: '2-digit',
                           minute: '2-digit'
                         })}
-                      </p>
+                      </div>
                     </div>
                   </div>
-                  <p className="text-neutral-700">{comment.content}</p>
+                  <div className="text-neutral-700">{comment.content}</div>
                 </div>
               ))}
             </div>

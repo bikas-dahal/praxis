@@ -4,9 +4,17 @@ import Link from "next/link";
 import { Button } from "../ui/button";
 import { Card, CardContent, CardHeader } from "../ui/card";
 import { getUserSession } from "@/actions/auth/session";
+// import useMessageStore from '@/hooks/chat/use-message-store';
+import ChatCard from './chat-card';
+import { redirect } from 'next/navigation';
 
 export const DashboardCards = async () => {
   const session = await getUserSession();
+
+  if (!session?.user) {
+    return redirect('/auth/login');
+  }
+
 
   return (
     <div className="flex flex-wrap gap-4 p-4">
@@ -37,20 +45,7 @@ export const DashboardCards = async () => {
       </Card>
 
       {/* Chat */}
-      <Card className="flex-1 min-w-[300px] max-w-[400px]">
-        <CardHeader>
-          <h2 className="text-lg font-semibold">Chat(✅)</h2>
-        </CardHeader>
-        <CardContent>
-          <p className="text-sm text-gray-500">
-            Engage with peers and mentors in real-time.
-          </p>
-          <Button className="mt-4 w-full" asChild>
-            <Link href="/dashboard/chat">Open Chat</Link>
-          </Button>
-        </CardContent>
-      </Card>
-
+      <ChatCard />
       {/* Resources */}
       <Card className="flex-1 min-w-[300px]">
         <CardHeader>
@@ -86,23 +81,7 @@ export const DashboardCards = async () => {
           <h2 className="text-lg font-semibold">Latest Blogs(✅)</h2>
         </CardHeader>
         <CardContent>
-          <ul className="space-y-2">
-            <li>
-              <Link href="/blogs/exam-prep-strategies" className="text-blue-600 hover:underline">
-                Exam Prep Strategies
-              </Link>
-            </li>
-            <li>
-              <Link href="/blogs/time-management-tips" className="text-blue-600 hover:underline">
-                Time Management Tips
-              </Link>
-            </li>
-            <li>
-              <Link href="/blogs/latest-exam-trends" className="text-blue-600 hover:underline">
-                Latest Exam Trends
-              </Link>
-            </li>
-          </ul>
+          
           <Button className="mt-4 w-full" asChild>
             <Link href="/dashboard/blogs">Read Blogs</Link>
           </Button>

@@ -23,19 +23,19 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         }
     },
     callbacks: {
-        async signIn({ user, account}) {
-            if (account?.provider !== "credentials") return true;
+        // async signIn({ user, account}) {
+        //     if (account?.provider !== "credentials") return true;
 
-            const existingUser = await getUserById( user.id! );
+        //     // const existingUser = await getUserById( user.id! );
 
-            // if (!existingUser?.emailVerified) {
-            //     return false
-            // }
+        //     // if (!existingUser?.emailVerified) {
+        //     //     return false
+        //     // }
 
-            // console.log('eu', existingUser)
+        //     // console.log('eu', existingUser)
 
-            return true
-        },
+        //     return true
+        // },
 
         async session({ token, session}) {
             // console.log({stoken: token})

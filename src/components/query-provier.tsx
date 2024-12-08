@@ -1,13 +1,18 @@
 // In Next.js, this file would be called: app/providers.tsx
 'use client'
 
+import { getUnreadMessageCount } from '@/actions/messageActions'
+import useMessageStore from '@/hooks/chat/use-message-store'
+import { useNotificationChannel } from '@/hooks/chat/use-notification-channel'
 import { usePresenceChannel } from '@/hooks/chat/use-presence-channel'
+import { useCurrentUser } from '@/hooks/use-current-user'
 // Since QueryClientProvider relies on useContext under the hood, we have to put 'use client' on top
 import {
     isServer,
     QueryClient,
     QueryClientProvider,
 } from '@tanstack/react-query'
+import { useCallback, useEffect, useRef } from 'react'
 
 function makeQueryClient() {
     return new QueryClient({
@@ -38,7 +43,8 @@ function getQueryClient() {
 }
 
 interface QueryProviderProps {
-    children: React.ReactNode
+    children: React.ReactNode,
+    
 }
 
 export const QueryProvider = ({ children }: QueryProviderProps) => {
@@ -47,9 +53,37 @@ export const QueryProvider = ({ children }: QueryProviderProps) => {
     //       suspend because React will throw away the client on the initial
     //       render if it suspends and there is no boundary
     const queryClient = getQueryClient()
+    const session = useCurrentUser()
+    const userId = session?.id
+
+    const isUnreadCountSet = useRef(false)
+
+    const updateUnreadCount = useMessageStore((state) => state.updateUnreadCount)
+
+
+    const setUnreadCount = useCallback((amount: number) => {
+        updateUnreadCount(amount)
+
+    }, [updateUnreadCount])
+
+    useEffect(() => {
+        if (userId && !isUnreadCountSet.current) {
+           getUnreadMessageCount().then((count) => {
+                setUnreadCount(count)
+                isUnreadCountSet.current = true
+            }).catch((err) => {
+                console.error(err)
+           })
+        }
+    }, [setUnreadCount, userId])
+
     usePresenceChannel()
+    useNotificationChannel(userId!)
 
     return (
-        <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+        <QueryClientProvider client={queryClient}>
+            {children}
+
+        </QueryClientProvider>
     )
 }

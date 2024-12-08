@@ -11,7 +11,7 @@ export const LikeButton = ({ blogId }: { blogId: string }) => {
   const currentUser = useCurrentUser();
 
   if (!currentUser) {
-    return <p>You must be logged in to like this blog.</p>;
+    return null;
   }
 
   const [isLiked, setIsLiked] = useState<boolean | null>(null);
@@ -27,12 +27,12 @@ export const LikeButton = ({ blogId }: { blogId: string }) => {
       }
     };
     fetchLikeStatus();
-  }, [blogId, currentUser.id]);
+  }, [blogId, currentUser?.id]);
 
   const handleLikeToggle = async () => {
     setLoading(true);
     try {
-      await likeBlog(blogId, currentUser.id!);
+      await likeBlog(blogId, currentUser?.id!);
       setIsLiked((prev) => !prev);
     } catch (error) {
       console.error("Error toggling like:", error);

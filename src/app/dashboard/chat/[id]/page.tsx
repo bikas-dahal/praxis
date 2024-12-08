@@ -2,7 +2,7 @@
   import { auth } from "@/auth";
   import { ChatForm } from "@/components/chat/chat-form";
   import { MessageList } from "@/components/chat/message-list";
-  import MessageBox from "@/components/chat/messages";
+  // import MessageBox from "@/components/chat/messages";
 import PresenceDot from "@/components/chat/presence-dot";
   import { prisma } from "@/lib/prisma";
   import { createChatId } from "@/lib/utils";
@@ -24,11 +24,11 @@ import PresenceDot from "@/components/chat/presence-dot";
 
     const session = await auth();
 
-    if (!session) {
+    if (!session?.user) {
       return { status: 401, formattedMessage: [] };
     }
 
-    const chatId= createChatId(session?.user?.id!, id);
+    const chatId= createChatId(session.user.id!, id);
 
     // console.log('mmafafa', messages);
     
@@ -64,7 +64,7 @@ import PresenceDot from "@/components/chat/presence-dot";
         {/* Chat Messages */}
         <div className="flex-grow overflow-y-auto p-4">
           {/* Example messages */}
-          <MessageList initialMessages={messages.formattedMessage} userId={session?.user?.id!} chatId={chatId} />
+          <MessageList initialMessages={messages} userId={session.user.id!} chatId={chatId} />
         </div>
 
         {/* Chat Input */}
