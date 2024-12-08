@@ -2,6 +2,7 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   pageExtensions: ['mdx', 'ts', 'tsx'],
+  output: 'standalone',
   typescript: {
     ignoreBuildErrors: true
   },
