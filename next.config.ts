@@ -2,6 +2,7 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   pageExtensions: ['mdx', 'ts', 'tsx'],
+  reactStrictMode: true,
   output: 'standalone',
   typescript: {
     ignoreBuildErrors: true
@@ -21,7 +22,7 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: 'https',
-        hostname: 'plus.unsplash.com', 
+        hostname: 'cdn.pixabay.com', 
       },
       {
         protocol: 'https',

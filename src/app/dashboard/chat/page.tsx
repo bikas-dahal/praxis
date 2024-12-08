@@ -57,7 +57,8 @@ const ChatPage = async ({ searchParams }: { searchParams: SearchParams }) => {
                     <Image
                       src={person.image || "/images/avatar.png"}
                       alt={person.name!}
-                      fill
+                      width={40}
+                      height={40}
                       className="rounded-full object-cover"
                     />
                     <PresenceDot id={person.id} />

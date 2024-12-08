@@ -57,9 +57,10 @@ export function HeroSection() {
           >
             <div className="relative h-[600px] w-full">
               <Image
-                src="https://plus.unsplash.com/premium_photo-1661677961956-719597b56ea0?q=80&w=1770&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                src="https://cdn.pixabay.com/photo/2017/08/01/00/38/man-2562325_1280.jpg"
                 alt="Students studying in Nepal"
-                fill
+                width={1770}
+                height={600}
                 className="object-cover rounded-2xl shadow-2xl"
                 priority
               />

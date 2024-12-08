@@ -4,6 +4,9 @@ import "./globals.css";
 import { QueryProvider } from "@/components/query-provier";
 import Providers from "@/components/Providers";
 import { SessionProvide } from "@/components/session-provider";
+import { ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -35,6 +38,11 @@ console.log('Vercel Environment:', process.env.VERCEL_ENV);
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <ToastContainer
+                position='bottom-right'
+                autoClose={5000}
+                hideProgressBar={false}
+            />
         <SessionProvide>
           <QueryProvider>
           <Providers>

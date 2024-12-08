@@ -89,6 +89,8 @@ const EditForm: React.FC<EditFormProps> = ({ initialName, initialImage }) => {
                   <Image
                     src={imageUrl}
                     alt="Profile"
+                    width={96}
+                    height={96}
                     className="object-cover w-full h-full"
                   />
                 ) : (

@@ -1,11 +1,11 @@
 // 'use client'
 
 import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
 import { extractRouterConfig } from "uploadthing/server";
 import { ourFileRouter } from '@/app/api/uploadthing/core';
 // import { usePresenceChannel } from '@/hooks/chat/use-presence-channel';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 
@@ -15,11 +15,7 @@ export default function Providers({ children }: { children: React.ReactNode }) {
 
     return (
         <>
-            <ToastContainer
-                position='bottom-right'
-                autoClose={5000}
-                hideProgressBar={false}
-            />
+            
             <NextSSRPlugin
           /**
            * The `extractRouterConfig` will extract **only** the route configs

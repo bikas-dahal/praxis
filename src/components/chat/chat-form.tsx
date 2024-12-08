@@ -13,19 +13,19 @@ interface Props {
 }
 
 export const ChatForm = ({ id }: Props) => {
-
+    
+    const router = useRouter()
+    
+    const currentUser = useCurrentUser()
+    
+    if (!currentUser) return null
+    
     const { register, handleSubmit, reset,  } = useForm({
         resolver: zodResolver(messageSchema),
         defaultValues: {
             text: ''
         }
     })
-
-    const router = useRouter()
-
-    const currentUser = useCurrentUser()
-
-    if (!currentUser) return null
     
     // @ts-excpect-error
     const onSubmit = async (data: any) => {

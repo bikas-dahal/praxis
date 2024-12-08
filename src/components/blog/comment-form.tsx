@@ -7,6 +7,7 @@ import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { Loader2, Send } from "lucide-react";
 import Image from 'next/image';
+import { toast } from 'react-toastify';
 
 export const CommentForm = ({ blogId }: { blogId: string }) => {
   const user = useCurrentUser();
@@ -32,6 +33,7 @@ export const CommentForm = ({ blogId }: { blogId: string }) => {
     setSubmitError(null);
     try {
       await postComment(data);
+      toast.success('Comment posted successfully');
       reset();
     } catch (error) {
       setSubmitError(
