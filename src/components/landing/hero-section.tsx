@@ -29,11 +29,11 @@ export function HeroSection() {
               Empowering Nepal&apos;s
               <span className="block text-primary">Future Professionals</span>
             </h1>
-            <p className="text-xl text-muted-foreground mb-8">
+            <div className="text-xl text-muted-foreground mb-8">
               Join Nepal&apos;s premier platform for professional exam preparation. 
               We combine traditional wisdom with modern technology to help you 
               achieve excellence in your career journey.
-            </p>
+            </div>
             <div className="flex flex-col sm:flex-row gap-4">
             <Button size="lg" className="group" asChild>
               <Link href="/auth/register">

@@ -114,7 +114,7 @@ export const Filters = ({ totalCount = 0 }) => {
 
                 {/* Photo Filter */}
                 <div className="flex items-center gap-2">
-                    <p className="text-xs">With uploaded photo</p>
+                    <div className="text-xs">With uploaded photo</div>
                     <Switch 
                         checked={withPhoto}
                         onCheckedChange={setWithPhoto}

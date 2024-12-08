@@ -94,9 +94,9 @@ export const DashboardCards = async () => {
           <h2 className="text-lg font-semibold">Progress Tracker(❌)</h2>
         </CardHeader>
         <CardContent>
-          <p className="text-sm text-gray-500 mb-2">
+          <div className="text-sm text-gray-500 mb-2">
             Track your performance over time:
-          </p>
+          </div>
           <ul className="space-y-2">
             <li className="flex justify-between">
               <span>Completed Quizzes</span>

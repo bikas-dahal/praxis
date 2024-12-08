@@ -134,9 +134,9 @@ const EditForm: React.FC<EditFormProps> = ({ initialName, initialImage }) => {
               }`}
             />
             {errors.name && (
-              <p className="text-red-500 text-sm mt-1">
+              <div className="text-red-500 text-sm mt-1">
                 {errors.name.message}
-              </p>
+              </div>
             )}
           </div>
 

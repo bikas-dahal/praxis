@@ -67,11 +67,11 @@ export const CommentForm = ({ blogId }: { blogId: string }) => {
       />
       
       {errors.content && (
-        <p className="text-red-600 text-sm">{errors.content.message}</p>
+        <div className="text-red-600 text-sm">{errors.content.message}</div>
       )}
       
       {submitError && (
-        <p className="text-red-600 text-sm">{submitError}</p>
+        <div className="text-red-600 text-sm">{submitError}</div>
       )}
       
       <div className="flex justify-end">

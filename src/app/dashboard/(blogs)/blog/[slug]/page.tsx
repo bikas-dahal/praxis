@@ -69,7 +69,7 @@ export default async function BlogDetailPage({ params }: { params: Params }) {
                   <UserIcon className="w-12 h-12 text-neutral-400" />
                 )}
                 <div>
-                  <p className="font-semibold text-neutral-800">{blog.author.name}</p>
+                  <div className="font-semibold text-neutral-800">{blog.author.name}</div>
                   <div className="flex items-center text-neutral-600 text-sm space-x-2">
                     <Clock className="w-4 h-4" />
                     <time dateTime={blog.createdAt.toISOString()}>

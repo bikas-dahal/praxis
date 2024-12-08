@@ -22,9 +22,9 @@ const ChatCard = () => {
           </h2>
         </CardHeader>
         <CardContent>
-          <p className="text-sm text-gray-500">
+          <div className="text-sm text-gray-500">
             Engage with peers and mentors in real-time.
-          </p>
+          </div>
           <Button className="mt-4 w-full" asChild>
             <Link href="/dashboard/chat">Open Chat</Link>
           </Button>

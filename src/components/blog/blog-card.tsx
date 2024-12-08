@@ -18,7 +18,7 @@ export const BlogCard: React.FC<BlogCardProps> = ({ blog }) => {
             {blog.title}
           </h2>
           
-          <p className="text-neutral-600 text-sm leading-relaxed">
+          <div className="text-neutral-600 text-sm leading-relaxed">
             <ReactMarkdown 
                           remarkPlugins={[remarkGfm]}
                           rehypePlugins={[rehypeHighlight]}
@@ -27,7 +27,7 @@ export const BlogCard: React.FC<BlogCardProps> = ({ blog }) => {
               ? `${blog.content.slice(0, 120)}...`
               : blog.content}
                         </ReactMarkdown>
-          </p>
+          </div>
           
           <div className="flex justify-between items-center text-xs text-neutral-500">
             <div className="flex items-center space-x-2">

@@ -77,10 +77,10 @@ export const UserButton = () => {
               />
             </Avatar>
             <div className="flex flex-col pt-4 items-center justify-center">
-              <p className="text-sm font-medium text-neutral-900">
+              <div className="text-sm font-medium text-neutral-900">
                 {name || "User"}
-              </p>
-              <p className="text-xs text-neutral-500">{email}</p>
+              </div>
+              <div className="text-xs text-neutral-500">{email}</div>
             </div>
             <DropdownMenuSeparator className="my-1" />
             <DropdownMenuItem>

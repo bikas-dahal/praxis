@@ -88,7 +88,7 @@ export const BlogForm: React.FC = () => {
           className="w-full text-2xl font-bold text-gray-800 focus:outline-none focus:border-blue-500 border-b-2 border-gray-300 pb-2 mb-4 transition-colors duration-300"
           placeholder="Blog title (max 100 characters)"
         />
-        {errors.title && <p className="text-red-500 mt-2 mb-2">{errors.title.message}</p>}
+        {errors.title && <div className="text-red-500 mt-2 mb-2">{errors.title.message}</div>}
 
         <div className="flex items-center justify-between mb-2">
           <div className="flex space-x-2">
@@ -147,7 +147,7 @@ export const BlogForm: React.FC = () => {
           )}
         </div>
         
-        {errors.content && <p className="text-red-500 mt-2">{errors.content.message}</p>}
+        {errors.content && <div className="text-red-500 mt-2">{errors.content.message}</div>}
 
         <input
           {...register('tags')}

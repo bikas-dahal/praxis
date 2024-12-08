@@ -32,7 +32,7 @@ export const Sidebar = () => {
 
       {/* Footer */}
       <footer className="mt-auto text-sm text-gray-400">
-        <p>&copy; 2024 Praxis. All Rights Reserved.</p>
+        <div>&copy; 2024 Praxis. All Rights Reserved.</div>
       </footer>
     </aside>
   );

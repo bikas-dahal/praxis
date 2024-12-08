@@ -18,7 +18,7 @@ export const QuizCard = ({ quiz }: QuizProps) => {
           onClick={() => router.push(`/dashboard/quiz/${quiz.id}`)}
         >
           <h2 className="text-lg font-bold">{quiz.title}</h2>
-          <p>{quiz.description}</p>
+          <div>{quiz.description}</div>
         </div>
       );
     }

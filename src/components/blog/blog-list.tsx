@@ -27,7 +27,7 @@ export const BlogList: React.FC = async () => {
   });
 
   if (!blogs || blogs.length === 0) {
-    return <p className="text-center text-neutral-500">No blogs available.</p>;
+    return <div className="text-center text-neutral-500">No blogs available.</div>;
   }
 
   return (

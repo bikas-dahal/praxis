@@ -13,9 +13,9 @@ const ErrorPage = () => {
       <h1 className="text-4xl font-bold mb-2 opacity-0 animate-fade-in">
         404 - Page Not Found
       </h1>
-      <p className="text-lg text-gray-800 mb-6 text-center opacity-0 animate-fade-in delay-100">
+      <div className="text-lg text-gray-800 mb-6 text-center opacity-0 animate-fade-in delay-100">
         The page you’re looking for doesn’t exist or has been moved.
-      </p>
+      </div>
       <Button
         variant="secondary"
         size="lg"

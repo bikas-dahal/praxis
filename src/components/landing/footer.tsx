@@ -2,6 +2,7 @@
 
 import { Facebook, Instagram, Linkedin, Mail, MapPin, Phone, Twitter } from "lucide-react";
 import Link from "next/link";
+import { FaFacebook, FaInstagram, FaLinkedinIn, FaTwitter } from "react-icons/fa";
 
 export function Footer() {
   return (
@@ -11,10 +12,10 @@ export function Footer() {
           {/* About Section */}
           <div>
             <h3 className="text-lg font-semibold mb-4">About Praxis</h3>
-            <p className="text-muted-foreground">
+            <div className="text-muted-foreground">
               Empowering Nepal&apos; future professionals through comprehensive exam preparation
               and continuous learning support.
-            </p>
+            </div>
           </div>
 
           {/* Quick Links */}
@@ -67,27 +68,27 @@ export function Footer() {
           <div>
             <h3 className="text-lg font-semibold mb-4">Follow Us</h3>
             <div className="flex gap-4">
-              <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
-                <Facebook className="h-6 w-6" />
-              </a>
-              <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
-                <Twitter className="h-6 w-6" />
-              </a>
-              <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
-                <Instagram className="h-6 w-6" />
-              </a>
-              <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
-                <Linkedin className="h-6 w-6" />
-              </a>
+              <Link href="#" className="text-muted-foreground hover:text-primary transition-colors">
+                <FaFacebook className="h-6 w-6" />
+              </Link>
+              <Link href="#" className="text-muted-foreground hover:text-primary transition-colors">
+                <FaTwitter className="h-6 w-6" />
+              </Link>
+              <Link href="#" className="text-muted-foreground hover:text-primary transition-colors">
+                <FaInstagram className="h-6 w-6" />
+              </Link>
+              <Link href="#" className="text-muted-foreground hover:text-primary transition-colors">
+                <FaLinkedinIn className="h-6 w-6" />
+              </Link>
             </div>
           </div>
         </div>
 
         <div className="mt-12 pt-8 border-t">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-muted-foreground text-sm">
-              © {new Date().getFullYear()} Praxis. All rights reserved.
-            </p>
+            <div className="text-muted-foreground text-sm">
+              © {2024} Praxis. All rights reserved.
+            </div>
             <div className="flex gap-4 text-sm">
               <Link href="/privacy" className="text-muted-foreground hover:text-primary transition-colors">
                 Privacy Policy

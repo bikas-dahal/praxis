@@ -13,7 +13,7 @@ export default async function QuizPage({ params }: { params: { quizId: string } 
   return (
     <div>
       <h1 className="text-2xl font-bold">{quiz.title}</h1>
-      <p>{quiz.description}</p>
+      <div>{quiz.description}</div>
       <ul>
         {quiz.questions.map((q) => (
           <li key={q.id}>{q.text}</li>

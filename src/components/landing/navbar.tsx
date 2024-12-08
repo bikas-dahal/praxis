@@ -50,23 +50,23 @@ export function Navbar() {
 
 function NavLink({ href, children }: { href: string; children: React.ReactNode }) {
   return (
-    <a 
+    <Link
       href={href}
       className="text-muted-foreground hover:text-primary transition-colors"
     >
       {children}
-    </a>
+    </Link>
   );
 }
 
 function MobileNavLink({ href, onClick, children }: { href: string; onClick: () => void; children: React.ReactNode }) {
   return (
-    <a 
+    <Link
       href={href}
       onClick={onClick}
       className="text-muted-foreground hover:text-primary transition-colors block px-4 py-2"
     >
       {children}
-    </a>
+    </Link>
   );
 }

@@ -130,9 +130,9 @@ export default function MessageBox({
                 <Menu message={message} />
             </div> */}
           <div className={messageContentClasses}>
-            <p className="text-sm break-words">
+            <div className="text-sm break-words">
               {message.text || "No message content"} 
-            </p>
+            </div>
           </div>
             {/* <div className={cn(isCurrentUserSender ? 'hidden' : 'block')}>
                 <Menu message={message} />

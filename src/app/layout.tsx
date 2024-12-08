@@ -27,6 +27,9 @@ export default async function  RootLayout({
   children: React.ReactNode;
 }>) {
 
+  console.log('Current Environment:', process.env.NODE_ENV);
+console.log('Vercel Environment:', process.env.VERCEL_ENV);
+
   return (
     <html lang="en">
       <body

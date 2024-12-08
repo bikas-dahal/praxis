@@ -36,7 +36,7 @@ const ChatPage = async ({ searchParams }: { searchParams: SearchParams }) => {
       {/* Header */}
       <header className="text-center mb-8">
         <h1 className="text-3xl font-bold text-gray-800">Chat</h1>
-        <p className="text-sm text-gray-500">Connect with your friends and peers</p>
+        <div className="text-sm text-gray-500">Connect with your friends and peers</div>
       </header>
 
       {/* Filters */}
@@ -66,9 +66,9 @@ const ChatPage = async ({ searchParams }: { searchParams: SearchParams }) => {
                   {/* User Info */}
                   <div>
                     <h2 className="text-lg font-semibold text-gray-800">{person.name}</h2>
-                    <p className="text-sm text-gray-500">
+                    <div className="text-sm text-gray-500">
                       {person.nature === "writer" ? "Reader and writer" : "Reader"}
-                    </p>
+                    </div>
                   </div>
                 </div>
               </Link>
