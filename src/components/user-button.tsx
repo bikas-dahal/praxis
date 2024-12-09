@@ -19,7 +19,7 @@ import Image from "next/image";
 import { logOut } from "@/actions/auth/logout";
 import Link from "next/link";
 import { getUserImage } from "@/actions/auth/settings";
-import { toast } from "react-toastify";
+import { toast } from "sonner";
 
 export const UserButton = () => {
   const currentUser = useCurrentUser();

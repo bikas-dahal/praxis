@@ -13,7 +13,7 @@ import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeHighlight from 'rehype-highlight';
 import 'highlight.js/styles/github.css';
-import { toast } from 'react-toastify';
+import { toast } from 'sonner';
 
 // Dynamically import the markdown editor to reduce initial bundle size
 const MDEditor = dynamic(() => import('@uiw/react-md-editor'), { ssr: false });
@@ -90,7 +90,7 @@ export const BlogForm: React.FC = () => {
         />
         {errors.title && <div className="text-red-500 mt-2 mb-2">{errors.title.message}</div>}
 
-        <div className="flex items-center justify-between mb-2">
+        {/* <div className="flex items-center justify-between mb-2">
           <div className="flex space-x-2">
             <button 
               type="button"
@@ -121,7 +121,7 @@ export const BlogForm: React.FC = () => {
               <span>Preview</span>
             </button>
           </div>
-        </div>
+        </div> */}
 
         <div className="border rounded-lg overflow-hidden">
           {!previewMode ? (

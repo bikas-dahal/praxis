@@ -1,11 +1,8 @@
 // 'use client'
 
-import { ToastContainer } from 'react-toastify';
 import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
 import { extractRouterConfig } from "uploadthing/server";
 import { ourFileRouter } from '@/app/api/uploadthing/core';
-// import { usePresenceChannel } from '@/hooks/chat/use-presence-channel';
-import 'react-toastify/dist/ReactToastify.css';
 
 
 

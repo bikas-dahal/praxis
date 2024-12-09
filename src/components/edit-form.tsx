@@ -6,7 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { UploadButton } from "@/lib/uploadthing";
 import { updateUserProfile } from "@/actions/auth/settings";
-import { toast } from "react-toastify";
+import { toast } from "sonner";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "./ui/button";
 import Link from "next/link";
